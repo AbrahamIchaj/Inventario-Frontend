@@ -1,3 +1,4 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/bootstrap.css";
@@ -24,7 +25,7 @@ export default function RootLayout({
               <NavSide />
             </div>
             <div className="col-md-10">
-              <main className="p-3 bg-light">{children}</main>
+              <main className="p-3">{children}</main>
             </div>
           </div>
         </div>
