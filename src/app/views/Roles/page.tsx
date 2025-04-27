@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Role, RolePermissions } from '@/app/models/Role';
 import { roleService } from '@/app/services/roleService';
 import { Button, Table, Modal, Form, Alert } from 'react-bootstrap';
+import { AlertMessage } from '@/app/components/Alertas/page';
+import { AlertaComponent } from '@/app/components/Alertas/AlertaComponent';
 
 export default function RolesPage() {
   const [roles, setRoles] = useState<Role[]>([]);
@@ -17,6 +19,8 @@ export default function RolesPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [alert, setAlert] = useState<AlertMessage | null>(null);
+  const handleCloseAlert = () => setAlert(null);
 
   useEffect(() => {
     loadRoles();
@@ -33,12 +37,20 @@ export default function RolesPage() {
         setRoles(data);
         setError(null);
       } else {
-        console.error('Invalid data format:', data);
-        setError('Formato de datos inválido recibido del servidor');
+        console.error('Formato de datos inválido:', data);
+        setAlert({
+          message: 'Formato de datos inválido recibido del servidor',
+          severity: 'error',
+          title: 'Error'
+        });
       }
     } catch (err) {
-      console.error('Error loading roles:', err);
-      setError('Error al cargar los roles. Por favor, verifica la conexión con el servidor.');
+      console.error('Error cargando roles:', err);
+      setAlert({
+        message: 'Error al cargar roles. Por favor, verifica la conexión con el servidor.',
+        severity: 'error',
+        title: 'Error'
+      });
     } finally {
       setLoading(false);
     }
@@ -65,13 +77,27 @@ export default function RolesPage() {
 
       if (isEditing && currentRole.id_rol) {
         await roleService.updateRole(currentRole.id_rol, roleData);
+        setAlert({
+          message: 'Rol actualizada correctamente',
+          severity: 'success',
+          title: 'Éxito'
+        });
       } else {
         await roleService.createRole(roleData);
+        setAlert({
+          message: 'Rol creada correctamente',
+          severity: 'success',
+          title: 'Éxito'
+        });
       }
       loadRoles();
       handleCloseModal();
     } catch (err) {
-      setError('Error al guardar el rol');
+      setAlert({
+        message: 'Error al guardar la Rol',
+        severity: 'error',
+        title: 'Error'
+      });
     }
   };
 
@@ -109,15 +135,31 @@ export default function RolesPage() {
     if (window.confirm('¿Está seguro de eliminar este rol?')) {
       try {
         await roleService.deleteRole(id);
+        setAlert({
+          message: 'Rol eliminado correctamente',
+          severity: 'warning',
+          title: 'Advertencia'
+        });
         loadRoles();
       } catch (err) {
-        setError('Error al eliminar el rol');
+        setAlert({
+          message: 'Error al eliminar la marca',
+          severity: 'error',
+          title: 'Error'
+        });
       }
+    } else {
+      setAlert({
+        message: 'Eliminación cancelada por el usuario',
+        severity: 'info',
+        title: 'Información'
+      });
     }
   };
 
   return (
     <div className="container mt-4">
+      <AlertaComponent alert={alert} onClose={handleCloseAlert} />
       {error && <Alert variant="danger">{error}</Alert>}
       
       <div className="d-flex justify-content-between align-items-center mb-4">

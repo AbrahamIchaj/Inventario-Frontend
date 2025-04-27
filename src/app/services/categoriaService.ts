@@ -1,7 +1,8 @@
 import { Categoria } from "../models/Categoria";
+import { API_URL } from "../lib/apiRoute";
 
-const API_URL = "http://192.168.1.138:3001/api";
 const nombreApi = "category";
+const mensajeModulo = "Categoria";
 
 export const categoriaService = {
   getAllCategorias: async (): Promise<Categoria[]> => {
@@ -39,7 +40,7 @@ export const categoriaService = {
         Accept: "application/json",
       },
     });
-    if (!response.ok) throw new Error("Error al obtener la categoría");
+    if (!response.ok) throw new Error(`Error al obtener el ${mensajeModulo}`);
     return response.json();
   },
 
@@ -55,7 +56,7 @@ export const categoriaService = {
       },
       body: JSON.stringify(categoria),
     });
-    if (!response.ok) throw new Error("Error al crear la categoría");
+    if (!response.ok) throw new Error(`Error al guardar ${mensajeModulo}`);
     return response.json();
   },
 
@@ -71,7 +72,7 @@ export const categoriaService = {
       },
       body: JSON.stringify(categoria),
     });
-    if (!response.ok) throw new Error("Error al actualizar la categoría");
+    if (!response.ok) throw new Error(`Error al actualizar ${mensajeModulo}`);
     return response.json();
   },
 
@@ -83,7 +84,7 @@ export const categoriaService = {
         Accept: "application/json",
       },
     });
-    if (!response.ok) throw new Error("Error al eliminar la categoría");
+    if (!response.ok) throw new Error(`Error al eliminar ${mensajeModulo}`);
     return response.json();
   },
 };

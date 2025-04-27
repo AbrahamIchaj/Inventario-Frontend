@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
     "bootstrap": "^5.3.5",
     "frontend": "file:",
     "next": "15.2.5",
@@ -22,6 +26,4 @@
     "@types/react-dom": "^19",
     "typescript": "^5"
   }
-
-
 }

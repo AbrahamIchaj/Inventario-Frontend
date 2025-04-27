@@ -1,11 +1,11 @@
-import { Role } from "../models/Role";
+import { Impuesto } from "../models/Impuesto";
 import { API_URL } from "../lib/apiRoute";
 
-const nombreApi = "roles";
-const mensajeModulo = "Rol";
+const nombreApi = "tax";
+const mensajeModulo = "Impuesto";
 
-export const roleService = {
-  getAllRoles: async (): Promise<Role[]> => {
+export const impuestoService = {
+  getAllImpuestos: async (): Promise<Impuesto[]> => {
     try {
       const response = await fetch(`${API_URL}/${nombreApi}`, {
         method: "GET",
@@ -29,10 +29,11 @@ export const roleService = {
       const data = await response.json();
       return data;
     } catch (error) {
-      throw new Error("Error loading roles");
+      throw new Error(`Error cargando ${mensajeModulo}`);
     }
   },
-  getRoleById: async (id: number): Promise<Role> => {
+
+  getImpuestoById: async (id: number): Promise<Impuesto> => {
     const response = await fetch(`${API_URL}/${nombreApi}/${id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -43,9 +44,10 @@ export const roleService = {
     return response.json();
   },
 
-  createRole: async (role: {
+  createImpuesto: async (impuesto: {
     nombre: string;
-    permisos: string;
+    porcentaje: number;
+    descripcion: string | null;
   }): Promise<any> => {
     const response = await fetch(`${API_URL}/${nombreApi}`, {
       method: "POST",
@@ -53,15 +55,15 @@ export const roleService = {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(role),
+      body: JSON.stringify(impuesto),
     });
-    if (!response.ok) throw new Error(`Error al guardar ${mensajeModulo}`);
+    if (!response.ok) throw new Error(`Error al crear ${mensajeModulo}`);
     return response.json();
   },
 
-  updateRole: async (
+  updateImpuesto: async (
     id: number,
-    role: { nombre: string; permisos: string }
+    impuesto: { nombre: string; porcentaje: number; descripcion: string | null }
   ): Promise<any> => {
     const response = await fetch(`${API_URL}/${nombreApi}/${id}`, {
       method: "PUT",
@@ -69,13 +71,13 @@ export const roleService = {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(role),
+      body: JSON.stringify(impuesto),
     });
-    if (!response.ok) throw new Error("`Error al actualizar el ${mensajeModulo}`");
+    if (!response.ok) throw new Error(`Error al actualizar ${mensajeModulo}`);
     return response.json();
   },
 
-  deleteRole: async (id: number): Promise<any> => {
+  deleteImpuesto: async (id: number): Promise<any> => {
     const response = await fetch(`${API_URL}/${nombreApi}/${id}`, {
       method: "DELETE",
       headers: {
@@ -83,7 +85,7 @@ export const roleService = {
         Accept: "application/json",
       },
     });
-    if (!response.ok) throw new Error("`Error al eliminar el ${mensajeModulo}`");
+    if (!response.ok) throw new Error(`Error al eliminar el ${mensajeModulo}`);
     return response.json();
   },
 };
