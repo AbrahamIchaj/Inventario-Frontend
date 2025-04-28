@@ -4,6 +4,7 @@ export const navRoutes = [
   { path: "/views/Categoria", label: "Categorias", active: true},
   { path: "/views/Marca", label: "Marca" },
   { path: "/views/Impuesto", label: "Impuesto" },
+  { path: "/views/MetodoPago", label: "Metodo de Pago" },
 ];
 
 export const userMenuRoutes = [
