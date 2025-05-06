@@ -5,6 +5,7 @@ import { clienteService } from "@/app/services/clienteService";
 import { Button, Table, Modal, Form, Alert } from "react-bootstrap";
 import { AlertMessage } from "@/app/components/Alertas/page";
 import { AlertaComponent } from "@/app/components/Alertas/AlertaComponent";
+import { TablaCliente } from "@/app/components/Cliente/TablaCliente";
 
 export default function ClientesPage() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
@@ -36,7 +37,8 @@ export default function ClientesPage() {
       }
     } catch (err) {
       setAlert({
-        message: "Error al cargar los Clientes. Por favor, verifica la conexión con el servidor.",
+        message:
+          "Error al cargar los Clientes. Por favor, verifica la conexión con el servidor.",
         severity: "error",
         title: "Error",
       });
@@ -46,36 +48,45 @@ export default function ClientesPage() {
   };
 
   // Validaciones
-  const validateCliente = (cliente: Partial<Cliente>): { isValid: boolean; message: string } => {
-    if (!cliente.nombre?.trim()) return { isValid: false, message: "El nombre es requerido" };
-    if (!cliente.apellido?.trim()) return { isValid: false, message: "El apellido es requerido" };
-    if (!cliente.telefono?.trim()) return { isValid: false, message: "El teléfono es requerido" };
-    if (!cliente.email?.trim()) return { isValid: false, message: "El email es requerido" };
-    if (!cliente.direccion?.trim()) return { isValid: false, message: "La dirección es requerida" };
-    if (!cliente.ciudad?.trim()) return { isValid: false, message: "La ciudad es requerida" };
-    if (!cliente.limite_credito) return { isValid: false, message: "El límite de crédito es requerido" };
-    
+  const validateCliente = (
+    cliente: Partial<Cliente>
+  ): { isValid: boolean; message: string } => {
+    if (!cliente.nombre?.trim())
+      return { isValid: false, message: "El nombre es requerido" };
+    if (!cliente.apellido?.trim())
+      return { isValid: false, message: "El apellido es requerido" };
+    if (!cliente.telefono?.trim())
+      return { isValid: false, message: "El teléfono es requerido" };
+    if (!cliente.email?.trim())
+      return { isValid: false, message: "El email es requerido" };
+    if (!cliente.direccion?.trim())
+      return { isValid: false, message: "La dirección es requerida" };
+    if (!cliente.ciudad?.trim())
+      return { isValid: false, message: "La ciudad es requerida" };
+    if (!cliente.limite_credito)
+      return { isValid: false, message: "El límite de crédito es requerido" };
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(cliente.email)) {
       return { isValid: false, message: "El formato del email no es válido" };
     }
-  
+
     return { isValid: true, message: "" };
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const validation = validateCliente(currentCliente);
     if (!validation.isValid) {
       setAlert({
         message: validation.message,
         severity: "error",
-        title: "Error de Validación"
+        title: "Error de Validación",
       });
       return;
     }
-  
+
     try {
       const clienteData = {
         nombre: currentCliente.nombre!,
@@ -164,63 +175,12 @@ export default function ClientesPage() {
         </Button>
       </div>
 
-      {loading ? (
-        <div className="text-center">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Cargando...</span>
-          </div>
-        </div>
-      ) : (
-        <Table responsive striped bordered hover>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Teléfono</th>
-              <th>Email</th>
-              <th>Ciudad</th>
-              <th>Límite de Crédito</th>
-              <th>Saldo Pendiente</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {clientes.map((cliente) => (
-              <tr key={cliente.id_cliente}>
-                <td>{cliente.id_cliente}</td>
-                <td>{cliente.nombre}</td>
-                <td>{cliente.apellido}</td>
-                <td>{cliente.telefono}</td>
-                <td>{cliente.email}</td>
-                <td>{cliente.ciudad}</td>
-                <td>${Number(cliente.limite_credito).toFixed(2)}</td>
-                <td>${Number(cliente.saldo_pendiente).toFixed(2)}</td>
-                <td>{cliente.activo ? "Activo" : "Inactivo"}</td>
-                
-                <td>
-                  <Button
-                    variant="info"
-                    size="sm"
-                    className="me-2"
-                    onClick={() => handleEdit(cliente)}
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => handleDelete(cliente.id_cliente)}
-                  >
-                    Eliminar
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
+      <TablaCliente
+        clientes={clientes}
+        loading={loading}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
 
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
