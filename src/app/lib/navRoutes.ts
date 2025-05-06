@@ -1,10 +1,11 @@
 export const navRoutes = [
   { path: "/views/login", label: "Login", active: true },
   { path: "/views/Roles", label: "Roles", active: false },
-  { path: "/views/Categoria", label: "Categorias", active: true},
+  { path: "/views/Categoria", label: "Categorias", active: true },
   { path: "/views/Marca", label: "Marca" },
   { path: "/views/Impuesto", label: "Impuesto" },
   { path: "/views/MetodoPago", label: "Metodo de Pago" },
+  { path: "/views/Cliente", label: "Cliente" },
 ];
 
 export const userMenuRoutes = [
