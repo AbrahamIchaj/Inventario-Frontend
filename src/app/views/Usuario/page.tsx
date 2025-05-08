@@ -187,6 +187,7 @@ export default function UsuariosPage() {
         loading={loading}
         onEdit={handleEdit}
         onDelete={handleDelete}
+        roles={roles}
       />
 
       <Modal show={showModal} onHide={handleCloseModal}>

@@ -55,7 +55,7 @@ export const usuarioService = {
     const usuarioData = {
       nombre: usuario.nombre,
       email: usuario.email,
-      password_hash: usuario.password_hash,
+      password: usuario.password_hash,
       rol_id: usuario.rol_id,
       activo: usuario.activo,
       ultimo_acceso: usuario.ultimo_acceso ?? null,
@@ -90,7 +90,11 @@ export const usuarioService = {
   ): Promise<any> => {
     try {
       const usuarioData = {
-        ...usuario,
+        nombre: usuario.nombre,
+        email: usuario.email,
+        password: usuario.password_hash,
+        rol_id: usuario.rol_id,
+        activo: usuario.activo,
         ultimo_acceso: usuario.ultimo_acceso ?? null,
       };
 
