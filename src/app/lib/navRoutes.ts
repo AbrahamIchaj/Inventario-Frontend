@@ -8,6 +8,7 @@ export const navRoutes = [
   { path: "/views/Cliente", label: "Cliente" },
   { path: "/views/Proveedor", label: "Proveedor" },
   { path: "/views/Usuario", label: "Usuarios" },
+  { path: "/views/Sucursal", label: "Sucursales" },
 ];
 
 export const userMenuRoutes = [
