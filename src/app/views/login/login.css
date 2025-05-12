@@ -26,10 +26,16 @@
   border: none;
 }
 
+.position-relative .bi {
+  color: #6c757d;
+  z-index: 3;
+}
+
 .form-control {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 12px 16px;
+  padding-left: 45px !important;
   background-color: rgba(248, 249, 250, 0.9) !important;
 }
 
@@ -44,6 +50,52 @@
   border: none;
   padding: 12px;
   border-radius: 8px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  z-index: -1;
+  animation: rainbow 20s linear infinite;
+  background-size: 400%;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .btn-primary:hover {

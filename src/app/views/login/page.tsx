@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import "../../../styles/bootstrap.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./login.css";
 import ParticlesBackground from "@/app/components/Particles/ParticlesBackground";
 
@@ -10,6 +11,11 @@ export default function LoginPage() {
   const router = useRouter();
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
+  const [mostrarPassword, setMostrarPassword] = useState(false);
+
+  const togglePassword = () => {
+    setMostrarPassword(!mostrarPassword);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,31 +39,39 @@ export default function LoginPage() {
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label htmlFor="usuario" className="form-label">Usuario</label>
-                  <input
-                    type="text"
-                    className="form-control form-control-lg"
-                    id="usuario"
-                    placeholder="Ingresa tu usuario"
-                    value={usuario}
-                    onChange={(e) => setUsuario(e.target.value)}
-                    required
-                  />
+                  <div className="position-relative">
+                    <i className="bi bi-person position-absolute top-50 translate-middle-y ps-3"></i>
+                    <input
+                      type="text"
+                      className="form-control form-control-lg ps-5"
+                      id="usuario"
+                      placeholder="Ingresa tu usuario"
+                      value={usuario}
+                      onChange={(e) => setUsuario(e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="mb-4">
                   <label htmlFor="password" className="form-label">Contraseña</label>
                   <div className="position-relative">
+                    <i className="bi bi-lock position-absolute top-50 translate-middle-y ps-3"></i>
                     <input
-                      type="password"
-                      className="form-control form-control-lg"
+                      type={mostrarPassword ? "text" : "password"}
+                      className="form-control form-control-lg ps-5"
                       id="password"
                       placeholder="Ingresa tu contraseña"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
-                    <button type="button" className="btn position-absolute end-0 top-50 translate-middle-y">
-                      <i className="bi bi-eye"></i>
+                    <button 
+                      type="button" 
+                      className="btn position-absolute end-0 top-50 translate-middle-y text-muted pe-3"
+                      onClick={togglePassword}
+                    >
+                      <i className={`bi ${mostrarPassword ? 'bi-eye-slash' : 'bi-eye'}`}></i>
                     </button>
                   </div>
                 </div>
