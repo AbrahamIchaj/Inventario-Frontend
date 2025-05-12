@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --hostname 192.168.1.19 --port 3000 --turbopack",
+    "dev": "next dev --hostname 192.168.1.22 --port 3000 --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -13,7 +13,9 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
+    "@tailwindcss/forms": "^0.5.10",
     "bootstrap": "^5.3.5",
+    "bootstrap-icons": "^1.13.1",
     "frontend": "file:",
     "next": "15.2.5",
     "react": "^19.0.0",
