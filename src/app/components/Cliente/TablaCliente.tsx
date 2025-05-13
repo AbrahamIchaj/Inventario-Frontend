@@ -50,8 +50,8 @@ export const TablaCliente: React.FC<TablaClienteProps> = ({
             <td>{cliente.telefono}</td>
             <td>{cliente.email}</td>
             <td>{cliente.ciudad}</td>
-            <td>${Number(cliente.limite_credito).toFixed(2)}</td>
-            <td>${Number(cliente.saldo_pendiente).toFixed(2)}</td>
+            <td>Q{Number(cliente.limite_credito).toFixed(2)}</td>
+            <td>Q{Number(cliente.saldo_pendiente).toFixed(2)}</td>
             <td>{cliente.activo ? "Activo" : "Inactivo"}</td>
             <td>
               <Button

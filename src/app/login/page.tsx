@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import "../../../styles/bootstrap.css";
+import "../../styles/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./login.css";
 import ParticlesBackground from "@/app/components/Particles/ParticlesBackground";
@@ -20,6 +20,8 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Aquí irá la lógica de autenticación
+    // Por ahora, simplemente redirigimos al Panel
+    router.push('/views/Panel');
   };
 
   return (

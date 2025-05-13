@@ -1,36 +1,27 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-//import "../styles/bootstrap.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import NavSide from "./components/NavSide/page";
+import type { Metadata } from 'next'
+import { Dosis } from 'next/font/google'
+import './globals.css'
 
-const inter = Inter({ subsets: ["latin"] });
+const openSans = Dosis({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: "Inventory System",
-  description: "Inventory Management System",
-};
+  title: 'Inventory System',
+  description: 'Inventory management system',
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="es">
-      <body>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-2">
-              <NavSide />
-            </div>
-            <div className="col-md-10">
-              <main className="p-3">{children}</main>
-            </div>
-          </div>
-        </div>
+      <body className={openSans.className}>
+        {children}
       </body>
     </html>
-  );
+  )
 }
